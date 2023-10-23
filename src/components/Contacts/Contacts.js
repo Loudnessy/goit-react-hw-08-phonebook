@@ -20,7 +20,7 @@ const Contacts = ({onSubmitContact,onChangeInput,contacts,filter, filterByName, 
         } else {
             dispatch(fetchContacts())
         }
-    }, [dispatch])
+    }, [dispatch, isLoggedIn, navigate])
     return <>
     <HeaderStyled>
       <ContainerHeader>

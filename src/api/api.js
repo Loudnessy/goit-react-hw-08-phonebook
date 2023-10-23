@@ -1,7 +1,5 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import getStoredState from "redux-persist/es/getStoredState";
 axios.defaults.baseURL = "https://connections-api.herokuapp.com"
 const setAuthToken = (token) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
@@ -27,7 +25,7 @@ export const logIn = createAsyncThunk("auth/logining", async (payload, thunkAPI)
 })
 export const logout = createAsyncThunk("auth/loginingOut", async (payload, thunkAPI) => {
   try {
-     const response = await axios.post("/users/logout")
+    await axios.post("/users/logout")
   return setAuthToken()
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message)
