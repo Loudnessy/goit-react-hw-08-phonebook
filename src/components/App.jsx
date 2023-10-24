@@ -52,7 +52,7 @@ const onSignUp = async (evt) => {
     
       await dispatch(signUp(obj))  
      
-     if (authError) {
+     if (authError === true) {
         return 
      } else {
          await formReset()   
@@ -69,8 +69,13 @@ const onLogin = async (evt) => {
         evt.target[1].value = ""
     }
     await dispatch(logIn(obj))
-    await formReset()
-    navigate("/contacts", { replace: true })
+    
+    if (authError === true) {
+        return 
+     } else {
+         await formReset()   
+     navigate("/contacts", { replace: true })   
+     }
 }
 const onLogout = async () => {
     await dispatch(logout())
