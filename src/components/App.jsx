@@ -16,11 +16,11 @@ const Navigation = lazy(() => import("./Navigation/Navigation"));
 export const App = () => {
 const contacts = useSelector(state => state.contacts.items)
 const filter = useSelector(state => state.filter)
-const authError  = useSelector(state => state.auth.error)
 const userEmail = useSelector(state => state.auth.user.email)
 const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
 const isRefreshing = useSelector(state => state.auth.isRefreshing)    
 const userName = useSelector(state => state.auth.user.name)
+const authError = useSelector(state => state.auth.error)
 const dispatch = useDispatch();
 const navigate = useNavigate()
 useEffect(() => {
@@ -49,14 +49,16 @@ const onSignUp = async (evt) => {
         evt.target[1].value = ""
         evt.target[2].value = ""
     }
-    await dispatch(signUp(obj))
-    await formReset()
-    if (authError === true) {
+    
+      await dispatch(signUp(obj))  
+     
+     if (authError) {
         return 
-    }
-    else {
+     } else {
+         await formReset()   
      navigate("/contacts", { replace: true })   
-    }
+     }
+        
     
 }
 const onLogin = async (evt) => {
@@ -69,7 +71,6 @@ const onLogin = async (evt) => {
     await dispatch(logIn(obj))
     await formReset()
     navigate("/contacts", { replace: true })
-
 }
 const onLogout = async () => {
     await dispatch(logout())
@@ -79,8 +80,8 @@ const onLogout = async () => {
     return isRefreshing ? (<div>Loading</div>) : (
 <Suspense fallback={<div>Loading...</div>}>
     <Routes>
-        <Route path="/register" element={<RegisterForm onSignUp={onSignUp}/>}/>
-        <Route path="/login" element={<LoginForm onLogin={onLogin}/>} />
+        <Route path="/register" element={<RegisterForm onSignUp={onSignUp} isLoggedIn={isLoggedIn}/>}/>
+        <Route path="/login" element={<LoginForm onLogin={onLogin} isLoggedIn={isLoggedIn}/>} />
         <Route path="/contacts" element={<Contacts onSubmitContact={onSubmitContact} onChangeInput={onChangeInput} contacts={contacts} filter={filter} filterByName={filterByName} deletingContact={deletingContact} userEmail={userEmail} onLogout={onLogout} isLoggedIn={isLoggedIn}/>}/>
         <Route path="/" element={<Navigation isLoggedIn={isLoggedIn} userName={userName}/>}/>
         <Route path="*" element={<div>there are no page with this url</div>} />

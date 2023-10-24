@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import {logIn, logout, signUp, userLocalStorage} from "api/api";
 
 const handleRejected = (state, action) => {
-  state.error = true
   state.isLoggedIn = false
   state.isRefreshing = false
+  state.error = true
 };
 const authSlice = createSlice({
     
@@ -23,17 +23,20 @@ const authSlice = createSlice({
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
+        state.error = false
             }, 
     [signUp.fulfilled](state, action) {
       state.token = action.payload.token
       state.user = {name: action.payload.user.name, email: action.payload.user.email}
       state.isLoggedIn = true
+      state.error = false
           },
           
     [logIn.fulfilled](state, action) {
       state.token = action.payload.token
       state.user = {name: action.payload.user.name, email: action.payload.user.email}
       state.isLoggedIn = true
+      state.error = false
           },
           [userLocalStorage.pending](state, action) {
                   state.isRefreshing = true
@@ -41,6 +44,7 @@ const authSlice = createSlice({
           [userLocalStorage.fulfilled](state, action) {
             state.isLoggedIn = true;
       state.isRefreshing = false;
+      state.error = false
                 },
                 [signUp.rejected]: handleRejected,
                 [logIn.rejected]: handleRejected,

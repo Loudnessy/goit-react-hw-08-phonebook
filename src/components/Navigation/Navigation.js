@@ -27,7 +27,7 @@ const Navigation = ({isLoggedIn, userName}) => {
     </ContainerHeader>
   </HeaderStyled>
   <section>
-  <Container> <h1>Hello User! If u want to work with contacts u need to logIn or logOut</h1></Container>
+  <Container> <h1>Hello User! If you want to work with contacts you need to logIn or Register</h1></Container>
  </section>
 </>)
 }

@@ -11,6 +11,7 @@ export const signUp = createAsyncThunk("auth/signingUp", async (payload, thunkAP
     await setAuthToken(response.data.token)
     return response.data
   } catch (error) {
+    alert(error.message)
     return thunkAPI.rejectWithValue(error.message);
   }
 })
@@ -20,6 +21,7 @@ export const logIn = createAsyncThunk("auth/logining", async (payload, thunkAPI)
     await setAuthToken(response.data.token)
     return response.data
   } catch (error) {
+    alert(error.message)
     return thunkAPI.rejectWithValue(error.message)
   }
 })
@@ -28,6 +30,7 @@ export const logout = createAsyncThunk("auth/loginingOut", async (payload, thunk
     await axios.post("/users/logout")
   return setAuthToken()
   } catch (error) {
+    alert(error.message)
     return thunkAPI.rejectWithValue(error.message)
   }
 })
@@ -41,6 +44,7 @@ export const userLocalStorage = createAsyncThunk("auth/userLocalStorage", async 
     }
     setAuthToken(persistedToken)
   } catch (error) {
+    alert(error.message)
     return thunkAPI.rejectWithValue(error.message);
   }
   
@@ -50,6 +54,7 @@ export const fetchContacts = createAsyncThunk("contacts/fetchAll", async (_, thu
       const response = await axios.get("/contacts");
     return response.data;  
     } catch (error) {
+      alert(error.message)
         return thunkAPI.rejectWithValue(error.message)
     }
   });
@@ -58,6 +63,7 @@ export const fetchContacts = createAsyncThunk("contacts/fetchAll", async (_, thu
         await axios.post("/contacts", payload)
         console.log(payload);
     } catch (error) {
+      alert(error.message)
         return thunkAPI.rejectWithValue(error.message)
     }
   });
@@ -66,6 +72,7 @@ export const fetchContacts = createAsyncThunk("contacts/fetchAll", async (_, thu
       await axios.delete(`/contacts/${payload}`);
     return payload;  
     } catch (error) {
+      alert(error.message)
         return thunkAPI.rejectWithValue(error.message)
     }
   });
