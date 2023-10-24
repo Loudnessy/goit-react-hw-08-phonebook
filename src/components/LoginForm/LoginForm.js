@@ -9,7 +9,7 @@ const LoginForm = ({onLogin, isLoggedIn}) => {
       if (isLoggedIn) {
         navigate("/contacts", { replace: true }) 
       }
-    }, [navigate])
+    }, [navigate, isLoggedIn])
     return <>
     <HeaderStyled>
     <ContainerHeader>

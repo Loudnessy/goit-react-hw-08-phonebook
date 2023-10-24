@@ -9,7 +9,7 @@ const RegisterForm = ({onSignUp, isLoggedIn}) => {
       if (isLoggedIn) {
         navigate("/contacts", { replace: true }) 
       }
-    }, [navigate])
+    }, [navigate, isLoggedIn])
     
     return <>
     <HeaderStyled>
